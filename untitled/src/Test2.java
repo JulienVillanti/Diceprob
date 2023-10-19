@@ -2,7 +2,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Random;
 
-public class Test6 {
+public class Test2 {
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
         int dieSides;
@@ -14,9 +14,14 @@ public class Test6 {
         System.out.print("What is the number of sides of each die: ");
         dieSides = kb.nextInt();
 
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        // Define column widths
+        int columnWidth = 15;
+
+        // Print table headers
+
         do {
-
-
             System.out.print("How many times do you want to roll the dice?: ");
             numOfRolls = kb.nextInt();
 
@@ -25,7 +30,11 @@ public class Test6 {
             int[][] randomRollOutcome = new int[dieSides + 1][dieSides + 1];
             int[][] mathRandomOutcomes = new int[dieSides + 1][dieSides + 1];
 
-            // Base probability
+            int[] baseRollCounts = new int[(dieSides + dieSides) + 1];
+            int[] randomRollCounts2 = new int[(dieSides + dieSides) + 1];
+            int[] mathRandomRollCounts = new int[(dieSides + dieSides) + 1];
+
+            // ... (your existing code for calculating probabilities and roll counts)
             int[] baseCount = new int[(dieSides * 2) + 1];
             for (int die1 = 1; die1 <= dieSides; die1++) {
                 for (int die2 = 1; die2 <= dieSides; die2++) {
@@ -34,7 +43,7 @@ public class Test6 {
                     baseCount[total]++;
                 }
             }
-
+            System.out.printf("%-" + columnWidth + "s%-" + columnWidth + "s%-" + columnWidth + "s%-" + columnWidth + "s%-" + columnWidth + "s%-" + columnWidth + "s%n", "Sum", "Base Rolls", "Base Probability (%)", "Random Rolls", "Random Probability (%)", "Math.random Probability (%)");
             // Random probability
             Random rolls = new Random();
             int[] randomRollCounts = new int[(dieSides * 2) + 1];
@@ -49,6 +58,7 @@ public class Test6 {
 
 
             // Math.random probability
+            int[] mathCount = new int[(dieSides * 2) + 1];
             for (int roll = 0; roll < numOfRolls; roll++) {
                 int die1 = (int) (Math.random() * dieSides) + 1;
                 int die2 = (int) (Math.random() * dieSides) + 1;
@@ -56,48 +66,24 @@ public class Test6 {
                 mathRandomOutcomes[die1][die2]++;
             }
 
-            DecimalFormat df = new DecimalFormat("0.00");
 
-            System.out.println("Base Probabilities:");
             for (int total = 2; total <= (dieSides + dieSides); total++) {
-                double totalOccurrences = 0;
+                double baseProbability = 0;
+                double randomProbability = 0;
+                double mathRandomProbability = 0;
+
                 for (int die1 = 1; die1 <= dieSides; die1++) {
                     int die2 = total - die1;
                     if (die2 >= 1 && die2 <= dieSides) {
-                        totalOccurrences += outcomesCount[die1][die2];
+                        baseProbability += (outcomesCount[die1][die2] / (double) numOutcomes) * 100;
+                        randomProbability += (randomRollOutcome[die1][die2] / (double) numOfRolls) * 100;
+                        mathRandomProbability += (mathRandomOutcomes[die1][die2] / (double) numOfRolls) * 100;
                     }
                 }
-                double probability = (totalOccurrences / numOutcomes) * 100;
-                String formattedProb = df.format(probability);
-                System.out.println("Sum " + total + ": Probability = " + formattedProb + "% with " + baseCount[total] + " rolls.");
-            }
 
-            System.out.println("User-Specific Probabilities (based on " + numOfRolls + " rolls):");
-            for (int total = 2; total <= (dieSides + dieSides); total++) {
-                double totalOccurrences = 0;
-                for (int die1 = 1; die1 <= dieSides; die1++) {
-                    int die2 = total - die1;
-                    if (die2 >= 1 && die2 <= dieSides) {
-                        totalOccurrences += randomRollOutcome[die1][die2];
-                    }
-                }
-                double probability = (totalOccurrences / numOfRolls) * 100;
-                String formattedProb = df.format(probability);
-                System.out.println("Sum " + total + ": Probability (Random) = " + formattedProb + "% with " + randomRollCounts[total] + " rolls.");
-            }
-
-            System.out.println("User-Specific Probabilities (based on " + numOfRolls + " rolls):");
-            for (int total = 2; total <= (dieSides + dieSides); total++) {
-                double totalOccurrences = 0;
-                for (int die1 = 1; die1 <= dieSides; die1++) {
-                    int die2 = total - die1;
-                    if (die2 >= 1 && die2 <= dieSides) {
-                        totalOccurrences += mathRandomOutcomes[die1][die2];
-                    }
-                }
-                double probability = (totalOccurrences / numOfRolls) * 100;
-                String formattedProb = df.format(probability);
-                System.out.println("Sum " + total + ": Probability (Math.random) = " + formattedProb + "%.");
+                // Print formatted row with specified column width
+                System.out.printf("%-" + columnWidth + "d%-" + columnWidth + "d%-" + columnWidth + "s%-" + columnWidth + "d%-" + columnWidth + "s%-" + columnWidth + "s%n",
+                        total,"()" +  baseCount[total], df.format(baseProbability) + "%", randomRollCounts[total], df.format(randomProbability) + "%", df.format(mathRandomProbability) + "%");
             }
 
             System.out.println("Would you like to roll the dice another time? (y/n)");
@@ -108,5 +94,6 @@ public class Test6 {
 }
 
 
-   // Sum      Should Occur     % Occurred          % Occurred
-   //                         (Math.random)       (util.Random)
+
+
+
