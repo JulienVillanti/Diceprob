@@ -1,3 +1,10 @@
+// -----------------------------------------------------
+// Assignment 2 - Random Number Generator
+// Written by: Julien Villanti - 2390054
+// Short Description of your project/code and how you designed it.
+// -----------------------------------------------------
+
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -55,10 +62,9 @@ public class TestFinal {
             }
 
             // Print table headers
-            //System.out.println(" Sum     \tShould Occur     \t  % Occurred\t      t% Occurred");
-            System.out.printf("%-5s %-20s %-18s %-18s%n", "Sum", "Should Occur", "% Occurred ", "% Occurred");
-            System.out.println(" \t \t \t \t          (util.Random)\t      (Math.random)");
-            System.out.println("----------------------------------------------------------------------");
+            System.out.printf("%-10s\t%-20s \t%-20s \t%-20s%n", "Sum", "Should Occur", "% Occurred ", "% Occurred");
+            System.out.printf("%-10s %-19s \t %-10s \t%19s%n", "   ", " ", " (util.Random) ", "  (Math.random)");
+            System.out.println("--------------------------------------------------------------------------");
 
             for (int total = 2; total <= (dieSides + dieSides); total++) {
                 double totalOccurrencesBase = 0;
@@ -67,37 +73,26 @@ public class TestFinal {
 
                 for (int die1 = 1; die1 <= dieSides; die1++) {
                     int die2 = total - die1;
-
                     if (die2 >= 1 && die2 <= dieSides) {
                         totalOccurrencesBase += outcomesCount[die1][die2];
                         totalOccurrencesRandom += randomRollOutcome[die1][die2];
                         totalOccurrencesMathRandom += mathRandomOutcomes[die1][die2];
                     }
                 }
-
+                //Determining the percentage of probability
                 double probabilityBase = (totalOccurrencesBase / numOutcomes) * 100;
                 double probabilityRandom = (totalOccurrencesRandom / numOfRolls) * 100;
                 double probabilityMathRandom = (totalOccurrencesMathRandom / numOfRolls) * 100;
 
-                System.out.printf("%3d\t   (%2d)\t%6.2f%%\t     (%6d)\t%6.2f%%\t     (%6d)\t%6.2f%%\n", total, baseCount[total], probabilityBase, randomRollCounts[total], probabilityRandom, mathRandomRollCounts[total], probabilityMathRandom);
+                //Formatting the output using printf
+                System.out.printf("%3d  \t   (%2d)\t%6.2f%%  \t   (%6d)\t%6.2f%%  \t   (%6d)\t%6.2f%%\n", total, baseCount[total], probabilityBase, randomRollCounts[total], probabilityRandom, mathRandomRollCounts[total], probabilityMathRandom);
             }
 
 
-            System.out.print("Would you like to roll the dice another time? (y/n): ");
+            System.out.print("Would you like to roll the dice another time? (any character but y to quit): ");
             rollAgain = kb.next();
 
         } while (rollAgain.equalsIgnoreCase("y"));
         System.out.println("Thank you for using my program!");
     }
 }
-
-
-
-
-
-       /* } //while (rollAgain.equalsIgnoreCase("y")) ;
-
-        System.out.println("Thank you for using my program!");
-    }
-}
-*/
