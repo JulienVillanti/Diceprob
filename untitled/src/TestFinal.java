@@ -33,12 +33,13 @@ public class TestFinal {
             System.out.print("How many times do you want to roll the dice?: ");
             numOfRolls = kb.nextInt();
 
+            //Calculate the number of possible outcomes and initiate the arrays for the different calculation methods
             int numOutcomes = dieSides * dieSides;
             int[][] outcomesCount = new int[dieSides + 1][dieSides + 1];
             int[][] randomRollOutcome = new int[dieSides + 1][dieSides + 1];
             int[][] mathRandomOutcomes = new int[dieSides + 1][dieSides + 1];
 
-            // Base probability
+            //Calculate the base probability by iterating through all the possible results of two dice rolls
             int[] baseCount = new int[(dieSides * 2) + 1];
             for (int die1 = 1; die1 <= dieSides; die1++) {
                 for (int die2 = 1; die2 <= dieSides; die2++) {
@@ -48,7 +49,7 @@ public class TestFinal {
                 }
             }
 
-            // util.Random probability
+            //Simulating dice rolls with util.Random and register the outcomes
             Random rolls = new Random();
             int[] randomRollCounts = new int[(dieSides * 2) + 1];
 
@@ -60,7 +61,7 @@ public class TestFinal {
                 randomRollCounts[totalRandom]++;
             }
 
-            // Math.random probability
+            // Simulating dice rolls with Math.random and register the outcomes
             int[] mathRandomRollCounts = new int[(dieSides * 2) + 1];
             for (int roll = 0; roll < numOfRolls; roll++) {
                 int die1 = (int) (Math.random() * dieSides) + 1;
@@ -78,10 +79,12 @@ public class TestFinal {
 
             //Calculating and storing the number of time each sum occurs
             for (int total = 2; total <= (dieSides + dieSides); total++) {
+                //Total occurrences for each method
                 double totalOccurrencesBase = 0;
                 double totalOccurrencesRandom = 0;
                 double totalOccurrencesMathRandom = 0;
 
+                //Iterating through the possible combinations of the two dice rolls
                 for (int die1 = 1; die1 <= dieSides; die1++) {
                     int die2 = total - die1;
                     if (die2 >= 1 && die2 <= dieSides) {
@@ -90,12 +93,12 @@ public class TestFinal {
                         totalOccurrencesMathRandom += mathRandomOutcomes[die1][die2];
                     }
                 }
-                //results in percentage
+                //Calculate the probabilities
                 double probabilityBase = (totalOccurrencesBase / numOutcomes) * 100;
                 double probabilityRandom = (totalOccurrencesRandom / numOfRolls) * 100;
                 double probabilityMathRandom = (totalOccurrencesMathRandom / numOfRolls) * 100;
 
-                //Formatting the output using printf
+                //Formatting and displaying the output using printf
                 System.out.printf("%3d  \t   (%2d)\t%6.2f%%  \t   (%6d)\t%6.2f%%  \t   (%6d)\t%6.2f%%\n", total, baseCount[total], probabilityBase, randomRollCounts[total], probabilityRandom, mathRandomRollCounts[total], probabilityMathRandom);
             }
 
@@ -104,6 +107,7 @@ public class TestFinal {
             rollAgain = kb.next();
 
         } while (rollAgain.equalsIgnoreCase("y"));
-        System.out.println("Thank you for using my program!");
+
+        System.out.println("Thank you for using my program! Goodbye");
     }
 }
