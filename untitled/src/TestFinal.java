@@ -1,7 +1,16 @@
 // -----------------------------------------------------
 // Assignment 2 - Random Number Generator
 // Written by: Julien Villanti - 2390054
-// Short Description of your project/code and how you designed it.
+// This assignment asked us ton simulate the rolling of two dice, using two different objects, util.Random and Math.random, to generate the rolls.A 2-D array was needed to store the sum of each randomly generated roll.
+//The steps are the following:
+/*      1. Display a welcoming message
+        2. Ask the user how many sides each die has
+        3. Create the 2-d array to hold the frequency counter of each possible sums
+        4. Ask the user how many times they want the dice to be rolled using both methods
+        5. Print the expected frequencies and actual frequencies and percentages each sum appeared in both methods in a tabular format.
+        6. Repeat steps 3 to 5 as long as the user wants.
+        7. End with a closing message
+*/
 // -----------------------------------------------------
 
 
@@ -39,7 +48,7 @@ public class TestFinal {
                 }
             }
 
-            // Random probability
+            // util.Random probability
             Random rolls = new Random();
             int[] randomRollCounts = new int[(dieSides * 2) + 1];
 
@@ -66,6 +75,8 @@ public class TestFinal {
             System.out.printf("%-10s %-19s \t %-10s \t%19s%n", "   ", " ", " (util.Random) ", "  (Math.random)");
             System.out.println("--------------------------------------------------------------------------");
 
+
+            //Calculating and storing the number of time each sum occurs
             for (int total = 2; total <= (dieSides + dieSides); total++) {
                 double totalOccurrencesBase = 0;
                 double totalOccurrencesRandom = 0;
@@ -79,7 +90,7 @@ public class TestFinal {
                         totalOccurrencesMathRandom += mathRandomOutcomes[die1][die2];
                     }
                 }
-                //Determining the percentage of probability
+                //results in percentage
                 double probabilityBase = (totalOccurrencesBase / numOutcomes) * 100;
                 double probabilityRandom = (totalOccurrencesRandom / numOfRolls) * 100;
                 double probabilityMathRandom = (totalOccurrencesMathRandom / numOfRolls) * 100;
