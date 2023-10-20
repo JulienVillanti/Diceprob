@@ -29,6 +29,7 @@ public class TestFinal {
         System.out.print("What is the number of sides of each die: ");
         dieSides = kb.nextInt();
 
+        //Creating the loop to ask the user how many rolls they want, repeating step 3 to 5
         do {
             System.out.print("How many times do you want to roll the dice?: ");
             numOfRolls = kb.nextInt();
@@ -101,7 +102,6 @@ public class TestFinal {
                 //Formatting and displaying the output using printf
                 System.out.printf("%3d  \t   (%2d)\t%6.2f%%  \t   (%6d)\t%6.2f%%  \t   (%6d)\t%6.2f%%\n", total, baseCount[total], probabilityBase, randomRollCounts[total], probabilityRandom, mathRandomRollCounts[total], probabilityMathRandom);
             }
-
 
             System.out.print("Would you like to roll the dice another time? (any character but y to quit): ");
             rollAgain = kb.next();
